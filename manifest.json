@@ -1,0 +1,19 @@
+{
+	"manifest_version": 1,
+	"name": "Agregore QR Share",
+	"version": "1.0",
+
+	"description": "Share and load QR Codes",
+
+	"permissions": [
+		"activeTab"
+	],
+
+	"browser_action": {
+		"default_icon": {
+			"32": "QRScan.png"
+		},
+		"default_title": "QR Share",
+		"default_popup": "popup/index.html"
+	}
+}
