@@ -2,12 +2,14 @@
 
 window.scan.onclick = doScan
 
-chrome.tabs.query({ active: true }, setQR)
+const options = new URL(window.location.href).searchParams
 
-function setQR (tabs) {
-  const tab = tabs[0]
-  if (!tab) return console.error('No active tab found')
-  const { url } = tab
+const toSetqr = options.get('qr')
+if (toSetqr) setQR(toSetqr)
+
+if (options.has('scan')) setVisible(window.scan, true)
+
+function setQR (url) {
   window.qrcode = new QRCode(window.qr, {
     text: url,
     width: 256,
@@ -40,7 +42,7 @@ function doScan () {
     console.log('Scanned', url)
     if (url === lastSeen) return
     lastSeen = url
-    chrome.tabs.create({ url })
+    chrome.runtime.sendMessage({ url })
   }
 
   // Whatever, this happens when there's no result from the scan
